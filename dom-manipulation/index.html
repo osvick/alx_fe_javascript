@@ -34,6 +34,15 @@
     <input type="file" id="importFile" accept=".json" onchange="importFromJsonFile(event)" />
   </div>
 
-  <script src="script.js"></script>
+  <!-- Sync controls + status -->
+ <div style="margin-top:16px;">
+  <button id="syncNow">Sync Now</button>
+  <label style="margin-left:12px;">
+    <input type="checkbox" id="manualResolve" />
+    Manual conflict resolve
+  </label>
+ </div>
+ <div id="syncStatus" role="status" aria-live="polite" style="margin-top:10px;"></div>
+ <script src="script.js"></script>
 </body>
 </html>
