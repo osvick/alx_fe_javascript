@@ -1,82 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dynamic Quote Generator</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f5f5f5;
-            padding: 20px;
-            max-width: 800px;
-            margin: auto;
-        }
-        h1 {
-            text-align: center;
-        }
-        #quoteDisplay {
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            font-size: 1.2em;
-            min-height: 60px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        .controls {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-        button {
-            padding: 8px 12px;
-            border: none;
-            background: #007BFF;
-            color: white;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        button:hover {
-            background: #0056b3;
-        }
-        select, input[type="text"], input[type="file"] {
-            padding: 6px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        .add-quote {
-            margin-top: 20px;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dynamic Quote Generator</title>
 </head>
 <body>
+  <h1>Dynamic Quote Generator</h1>
 
-    <h1>Dynamic Quote Generator</h1>
+  <!-- Quote display -->
+  <div id="quoteDisplay"></div>
 
-    <div id="quoteDisplay">Loading quote...</div>
+  <!-- Buttons -->
+  <button id="newQuote">Show New Quote</button>
+  <button id="exportQuotes">Export Quotes</button>
+  <input type="file" id="importFile" accept=".json" onchange="importFromJsonFile(event)" />
 
-    <div class="controls">
-        <button id="newQuote">Show New Quote</button>
-        <select id="categoryFilter" onchange="filterQuotes()"></select>
-        <button onclick="fetchQuotesFromServer()">Sync from Server</button>
-        <button onclick="pushQuotesToServer()">Push to Server</button>
-    </div>
+  <!-- Add quote form -->
+  <div id="addQuoteForm"></div>
 
-    <div class="add-quote">
-        <h3>Add a New Quote</h3>
-        <input type="text" id="newQuoteText" placeholder="Enter quote" size="40">
-        <input type="text" id="newQuoteCategory" placeholder="Enter category">
-        <button onclick="addQuote()">Add Quote</button>
-    </div>
+  <!-- Category filter -->
+  <select id="categoryFilter" onchange="filterQuotes()">
+    <option value="all">All Categories</option>
+  </select>
 
-    <div class="import-export">
-        <h3>Import / Export Quotes</h3>
-        <input type="file" accept="application/json" onchange="importFromJsonFile(event)">
-        <button onclick="exportQuotes()">Export as JSON</button>
-    </div>
+  <!-- Sync button -->
+  <button id="syncQuotesBtn" onclick="syncQuotes()">Sync with Server</button>
 
-    <script src="script.js"></script>
-
+  <script src="script.js"></script>
 </body>
 </html>
