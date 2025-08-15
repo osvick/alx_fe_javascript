@@ -8,8 +8,7 @@ function saveQuotes() {
 }
 
 function displayQuote(quote) {
-  const quoteDisplay = document.getElementById("quoteDisplay");
-  quoteDisplay.textContent = `"${quote.text}" — ${quote.category}`;
+  document.getElementById("quoteDisplay").textContent = `"${quote.text}" — ${quote.category}`;
 }
 
 function newQuote() {
@@ -27,8 +26,10 @@ function createAddQuoteForm() {
   formDiv.innerHTML = `
     <input id="newQuoteText" type="text" placeholder="Enter a new quote" />
     <input id="newQuoteCategory" type="text" placeholder="Enter quote category" />
-    <button onclick="addQuote()">Add Quote</button>
+    <button id="addQuoteBtn">Add Quote</button>
   `;
+
+  document.getElementById("addQuoteBtn").addEventListener("click", addQuote);
 }
 
 function addQuote() {
@@ -93,34 +94,41 @@ function filterQuotes() {
   }
 }
 
-function fetchQuotesFromServer() {
-  fetch("https://jsonplaceholder.typicode.com/posts")
-    .then(response => response.json())
-    .then(data => {
-      console.log("Fetched from server:", data);
-      alert("Fetched quotes from server (simulation)");
-    })
-    .catch(error => console.error("Error fetching from server:", error));
+async function fetchQuotesFromServer() {
+  try {
+    const response = await fetch("https://jsonplaceholder.typicode.com/posts");
+    const data = await response.json();
+    console.log("Fetched from server:", data);
+    alert("Fetched quotes from server (simulation)");
+  } catch (error) {
+    console.error("Error fetching from server:", error);
+  }
 }
 
-function syncQuotes() {
-  fetch("https://jsonplaceholder.typicode.com/posts", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(quotes)
-  })
-  .then(response => response.json())
-  .then(data => {
+async function syncQuotes() {
+  try {
+    const response = await fetch("https://jsonplaceholder.typicode.com/posts", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(quotes)
+    });
+    const data = await response.json();
     console.log("Sync response:", data);
     alert("Quotes synced with server (simulation)");
-  })
-  .catch(error => console.error("Error syncing quotes:", error));
+  } catch (error) {
+    console.error("Error syncing quotes:", error);
+  }
 }
 
+// Event Listeners
 document.getElementById("newQuote").addEventListener("click", newQuote);
 document.getElementById("exportQuotes").addEventListener("click", exportQuotes);
+document.getElementById("importFile").addEventListener("change", importFromJsonFile);
+document.getElementById("categoryFilter").addEventListener("change", filterQuotes);
+document.getElementById("syncQuotesBtn").addEventListener("click", syncQuotes);
+document.getElementById("fetchQuotesBtn").addEventListener("click", fetchQuotesFromServer);
 
 createAddQuoteForm();
 populateCategories();

@@ -14,18 +14,19 @@
   <!-- Buttons -->
   <button id="newQuote">Show New Quote</button>
   <button id="exportQuotes">Export Quotes</button>
-  <input type="file" id="importFile" accept=".json" onchange="importFromJsonFile(event)" />
+  <input type="file" id="importFile" accept=".json" />
 
   <!-- Add quote form -->
   <div id="addQuoteForm"></div>
 
   <!-- Category filter -->
-  <select id="categoryFilter" onchange="filterQuotes()">
+  <select id="categoryFilter">
     <option value="all">All Categories</option>
   </select>
 
-  <!-- Sync button -->
-  <button id="syncQuotesBtn" onclick="syncQuotes()">Sync with Server</button>
+  <!-- Sync & Fetch -->
+  <button id="syncQuotesBtn">Sync with Server</button>
+  <button id="fetchQuotesBtn">Fetch from Server</button>
 
   <script src="script.js"></script>
 </body>
